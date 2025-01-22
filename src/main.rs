@@ -1,6 +1,9 @@
 use clap::Parser; // 引入派生宏
 
 pub mod cli;
+pub mod dir_entry;
+pub mod filesystem;
+pub mod filter;
 use crate::cli::Opts;
 
 fn main() {
