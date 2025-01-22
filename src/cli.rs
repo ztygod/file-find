@@ -1,5 +1,6 @@
 use clap::Parser; // 引入派生宏
 
+use crate::filter::SizeFilter;
 /// 一个简单的文件搜索工具
 #[derive(Parser, Debug)]
 #[command(name = "fd_search", version = "1.0", about = "A fast file search tool")]
