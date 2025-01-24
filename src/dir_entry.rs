@@ -151,6 +151,6 @@ impl Colorable for DirEntry {
     }
 
     fn metadata(&self) -> Option<Metadata> {
-        self.metadata().clone()
+        self.metedata().cloned()
     }
 }
