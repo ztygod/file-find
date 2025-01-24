@@ -60,8 +60,8 @@ impl SizeFilter {
 
         let size = quantity * multiplier;
         match limit_kind {
-            "+" => Some(SizeFilter::Min((size))),
-            "-" => Some(SizeFilter::MAX((size))),
+            "+" => Some(SizeFilter::Min(size)),
+            "-" => Some(SizeFilter::MAX(size)),
             "" => Some(SizeFilter::Equals(size)),
             _ => None,
         }

@@ -15,8 +15,5 @@ pub mod regex_helper;
 use crate::cli::Opts;
 
 fn main() {
-    let opts: Opts = Opts::parse(); // 自动解析命令行参数
-
-    // 打印解析结果
-    println!("{:?}", opts);
+    Opts::parse(); // 自动解析命令行参数
 }

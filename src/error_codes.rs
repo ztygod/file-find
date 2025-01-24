@@ -1,6 +1,5 @@
 use std::process;
 
-use chrono::format::Item;
 #[cfg(unix)]
 use nix::sys::signal::{raise, signal, SigHandler, Signal};
 
