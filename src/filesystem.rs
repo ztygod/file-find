@@ -7,6 +7,8 @@ use std::{
 };
 
 use normpath::PathExt;
+
+use crate::dir_entry;
 /*
 PathBuf 是 Rust 标准库中用于处理文件路径的一个类型，定义在 std::path 模块中。
 它是一个可变的、拥有所有权的路径表示类型，主要用于操作和构建文件路径。
@@ -73,7 +75,23 @@ pub fn is_existing_directory(path: &Path) -> bool {
     path.is_dir() && (path.file_name().is_some() || path.normalize().is_ok())
 }
 
-//pub fn is_empty(entry:&)
+pub fn is_empty(entry: &dir_entry::DirEntry) -> bool {
+    if let Some(file_type) = entry.file_type() {
+        if file_type.is_dir() {
+            if let Ok(mut entries) = fs::read_dir(entry.path()) {
+                entries.next().is_none()
+            } else {
+                false
+            }
+        } else if file_type.is_file() {
+            entry.metedata().map(|m| m.len() == 0).unwrap_or(false)
+        } else {
+            false
+        }
+    } else {
+        false
+    }
+}
 
 /*
 这些函数用于在 Windows 系统下处理或模拟文件类型检查。
@@ -115,6 +133,7 @@ pub fn osstr_to_bytes(input: &OsStr) -> Cow<[u8]> {
     }
 }
 
+//作用是从路径 path 的开头去掉当前目录的前缀（即 "./"），如果路径不以 "./" 开头，则直接返回原路径。
 pub fn strip_current_dir(path: &Path) -> &Path {
     path.strip_prefix(".").unwrap_or(path)
 }
